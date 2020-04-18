@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './global.sass';
+import './styles/global.sass';
 import App from './components/App/App';
 import * as serviceWorker from './serviceWorker';
 import { MineSweeperContext } from './api/MineSweeperContext';

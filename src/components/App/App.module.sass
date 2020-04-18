@@ -1,28 +1,34 @@
-.App 
-  text-align: center
+@import 'colors'
+@import 'dimensions'
 
+.App 
+  display: flex
+  flex-direction: column
+  
   .Header 
-    background-color: #282c34
-    min-height: 100vh
+    background-color: $secondary-background-color
+    height: $app-header-height
     display: flex
-    flex-direction: column
     align-items: center
-    justify-content: center
-    font-size: calc(10px + 2vmin)
     color: white
 
-  .Logo 
-    height: 40vmin
-    pointer-events: none
+    .Logo 
+      height: 2rem
+      pointer-events: none
+      margin-left: 1rem
+
+  .Main
+    height: calc(100vh - #{$app-header-height})
+
   
 
 
 @media (prefers-reduced-motion: no-preference) 
   .App 
     .Logo 
-      animation: App-logo-spin infinite 20s linear
+      animation: logo-spin infinite 20s linear
 
-@keyframes App-logo-spin 
+@keyframes logo-spin 
   from 
     transform: rotate(0deg) 
   to 
