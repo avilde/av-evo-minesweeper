@@ -1,12 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import './global.sass';
+import App from './components/App/App';
 import * as serviceWorker from './serviceWorker';
+import { MineSweeperContext } from './api/MineSweeperContext';
+import { MineSweeperSocketService } from './api/MineSweeperService';
+
+const mineSweeperSocketService = new MineSweeperSocketService();
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <MineSweeperContext.Provider value={mineSweeperSocketService}>
+      <App />
+    </MineSweeperContext.Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
