@@ -1,2 +1,16 @@
 .MineSweeper
   display: flex
+  flex-direction: column
+
+  .Controls
+    display: flex
+    
+    button
+      margin: 0.5rem 1rem
+
+    .GameOver
+      color: white
+      background-color: red
+
+      &.Hidden
+        visibility: hidden
