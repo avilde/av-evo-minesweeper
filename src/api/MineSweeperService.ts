@@ -1,26 +1,46 @@
-import { MINESWEEPER_SOCKET_URI, MineSweeperEventNames } from './constants';
-import { fromEvent, Observable } from 'rxjs';
+import { MINESWEEPER_ENDPOINT_URI } from './constants';
+import {
+  webSocket,
+  WebSocketSubject,
+  WebSocketSubjectConfig,
+} from 'rxjs/webSocket';
+import { NextObserver } from 'rxjs';
 
 export class MineSweeperSocketService {
-  constructor(
-    private socket: SocketIOClient.Socket = {} as SocketIOClient.Socket
-  ) {}
+  constructor(private subject: WebSocketSubject<string> | null = null) {}
 
-  public disconnect() {
-    this.socket.disconnect();
-  }
+  private onError = (error: string) => console.error(error);
 
-  init = () => {
-    this.socket = io(MINESWEEPER_SOCKET_URI);
+  private onClose = () => {
+    console.log('DISCONNECTED');
+  };
+
+  private onMessage = (message: string) => console.log(message);
+
+  private webSocketConfig = {
+    url: MINESWEEPER_ENDPOINT_URI,
+    serializer: (value: string) => value,
+    deserializer: ({ data }: MessageEvent) => data,
+  } as WebSocketSubjectConfig<string>;
+
+  connect = () => {
+    this.subject = webSocket<string>(this.webSocketConfig);
+
+    this.subject.subscribe(
+      (msg) => this.onMessage(msg),
+      (error) => this.onError(error),
+      () => this.onClose()
+    );
 
     return this;
   };
 
-  onMessage(): Observable<string> {
-    return fromEvent(this.socket, MineSweeperEventNames.MESSAGE);
-  }
-
-  send = (message: string) => {
-    this.socket?.emit(MineSweeperEventNames.MESSAGE, message);
+  disconnect = () => {
+    this.subject?.unsubscribe();
   };
+
+  subscribe = (observer: NextObserver<string>) =>
+    this.subject?.subscribe(observer);
+
+  sendMessage = (message: string) => this.subject?.next(message);
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from '../../assets/logo.svg';
 import classes from './App.module.sass';
+import MineSweeper from '../MineSweeper/MineSweeper';
 
 const App = () => {
   return (
@@ -11,7 +12,7 @@ const App = () => {
       </header>
 
       <main className={classes.Main}>
-
+        <MineSweeper />
       </main>
     </div>
   );
