@@ -74,11 +74,15 @@ const MineSweeper = () => {
   ) => {
     if (event.type === 'contextmenu') {
       event.preventDefault();
-      setGrid((grid) => {
-        const newGrid = [...grid];
-        newGrid[row][column].flag = !newGrid[row][column].flag;
-
-        return newGrid;
+      setGrid((oldGrid) => {
+        return [...oldGrid].map((cellRow, rowIndex) => {
+          return cellRow.map((cell, cellIndex) => {
+            if (rowIndex === row && cellIndex === column) {
+              return {...cell, flag: !cell.flag}
+            }
+            return cell;
+          })
+        })
       });
     } else {
       subject.sendMessage(`open ${row} ${column}`);
