@@ -29,9 +29,7 @@ const MineSweeper = () => {
     const onMessageSubscriber = {
       next: (message: string) => {
         if (message.startsWith('map')) {
-          const newGrid = transformMessageToGrid(message, grid);
-
-          setGrid(() => newGrid);
+          setGrid((oldGrid) => transformMessageToGrid(message, oldGrid));
         }
 
         if (message.includes('You lose')) {
@@ -54,9 +52,11 @@ const MineSweeper = () => {
   };
 
   const handleCellClick = (rowIndex: number, cellIndex: number) => {
-    console.log('input', rowIndex, cellIndex);
+    if (gameOver) {
+      return;
+    }
+
     const cell = findCell(grid, rowIndex, cellIndex);
-    console.log('found cell', cell);
 
     if (!cell) {
       return;

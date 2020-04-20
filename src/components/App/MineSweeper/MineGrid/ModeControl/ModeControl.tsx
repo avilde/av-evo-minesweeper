@@ -22,7 +22,10 @@ const ModeControl = (props: ModeControlProps) => {
         )}
         onClick={() => setMode(Mode.DEFAULT)}
       >
-        💣default
+        <span role="img" aria-label="Bomb">
+          💣
+        </span>
+        default
       </div>
       <div
         className={classNames(
@@ -32,7 +35,10 @@ const ModeControl = (props: ModeControlProps) => {
         )}
         onClick={() => setMode(Mode.FLAG)}
       >
-        🚩flag
+        <span role="img" aria-label="Flag">
+          🚩
+        </span>
+        flag
       </div>
       <div
         className={classNames(
@@ -42,7 +48,10 @@ const ModeControl = (props: ModeControlProps) => {
         )}
         onClick={() => setMode(Mode.QUESTION)}
       >
-        ❓question
+        <span role="img" aria-label="Question">
+          ❓
+        </span>
+        question
       </div>
     </div>
   );
