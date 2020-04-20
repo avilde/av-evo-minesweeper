@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { MineSweeperContext } from '../../api/MineSweeperContext';
-import MineGrid, { Cell } from '../MineGrid/MineGrid';
+import { MineSweeperContext } from '../../../api/MineSweeperContext';
+import MineGrid, { Cell } from './MineGrid/MineGrid';
 import classes from './MineSweeper.module.sass';
 import classNames from 'classnames';
 
