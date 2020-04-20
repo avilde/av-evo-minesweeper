@@ -69,15 +69,15 @@ export const findCell = (
   return row[cellIndex];
 };
 
-export const mergeGrids = (oldGrid: Cell[][], newGrid: Cell[][]): Cell[][] => {
+export const mergeGrids = (existingGrid: Cell[][], newGrid: Cell[][]): Cell[][] => {
   newGrid.flat().map((cell: Cell) => {
     if (!cell.open) {
       return cell;
     }
 
-    const oldCell = findCell(oldGrid, cell.rowIndex, cell.cellIndex);
+    const oldCell = findCell(existingGrid, cell.rowIndex, cell.cellIndex);
     if (oldCell) {
-      oldGrid[cell.rowIndex][cell.cellIndex] = {
+      existingGrid[cell.rowIndex][cell.cellIndex] = {
         ...oldCell,
         open: cell.open,
         value: cell.value,
@@ -86,7 +86,7 @@ export const mergeGrids = (oldGrid: Cell[][], newGrid: Cell[][]): Cell[][] => {
     return oldCell;
   });
 
-  return oldGrid;
+  return existingGrid;
 };
 
 export const deepCopy = (array: any[]) => {

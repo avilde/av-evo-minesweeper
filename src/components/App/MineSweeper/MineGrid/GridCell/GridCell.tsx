@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Cell } from '../MineGrid';
 import classes from './GridCell.module.sass';
 import classNames from 'classnames';
@@ -11,6 +11,8 @@ export interface GridCellProps {
 const GridCell = React.memo((props: GridCellProps) => {
   const { cell, onCellClick } = props;
   const { open, flag, value, question } = cell;
+
+  useCallback(() => {}, [cell]);
 
   return (
     <div
