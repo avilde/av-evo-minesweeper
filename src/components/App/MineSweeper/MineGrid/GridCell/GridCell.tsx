@@ -5,8 +5,6 @@ import classNames from 'classnames';
 
 export interface GridCellProps {
   cell: Cell;
-  rowIndex: number;
-  columnIndex: number;
   onCellClick: (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     row: number,
@@ -15,21 +13,20 @@ export interface GridCellProps {
 }
 
 const GridCell = (props: GridCellProps) => {
-  const { cell, columnIndex, rowIndex, onCellClick } = props;
-  const { open, flag, value } = cell;
+  const { cell, onCellClick } = props;
+  const { open, flag, value, row, col } = cell;
 
   return (
     <div
-      key={columnIndex}
       className={classNames(
         classes.GridCell,
         open ? classes.Open : classes.Closed,
         flag ? classes.Flag : null
       )}
       cell-value={value}
-      onClick={(event) => !open && onCellClick(event, columnIndex, rowIndex)}
+      onClick={(event) => !open && onCellClick(event, col, row)}
       onContextMenu={(event) =>
-        !open && onCellClick(event, columnIndex, rowIndex)
+        !open && onCellClick(event, col, row)
       }
     >
       <span>{open ? value : null}</span>

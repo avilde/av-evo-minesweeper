@@ -26,6 +26,8 @@ const MineSweeper = () => {
                   .split('')
                   .reduce((r: Cell[], char: string, columnIndex: number) => {
                     r.push({
+                      row: rowIndex,
+                      col: columnIndex,
                       open: char.charCodeAt(0) !== 9633,
                       flag: grid.length > 0 && grid[columnIndex][rowIndex].flag,
                       value: char,
@@ -76,7 +78,7 @@ const MineSweeper = () => {
         const newGrid = [...grid];
         newGrid[row][column].flag = !newGrid[row][column].flag;
 
-        return [...newGrid];
+        return newGrid;
       });
     } else {
       subject.sendMessage(`open ${row} ${column}`);

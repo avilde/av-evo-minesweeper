@@ -3,6 +3,8 @@ import classes from './MineGrid.module.sass';
 import GridCell from './GridCell/GridCell';
 
 export interface Cell {
+  row: number;
+  col: number;
   value: string;
   flag: boolean;
   open: boolean;
@@ -28,9 +30,8 @@ const MineGrid = (props: MineGridProps) => {
             {row.map((cell: Cell, columnIndex: number) => {
               return (
                 <GridCell
+                  key={columnIndex}
                   cell={cell}
-                  rowIndex={rowIndex}
-                  columnIndex={columnIndex}
                   onCellClick={onCellClick}
                 />
               );
