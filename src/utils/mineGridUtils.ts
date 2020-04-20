@@ -70,20 +70,23 @@ export const findCell = (
 };
 
 export const mergeGrids = (oldGrid: Cell[][], newGrid: Cell[][]): Cell[][] => {
-  const newGridCopy = deepCopy(oldGrid);
-
   newGrid.flat().map((cell: Cell) => {
-    const oldCell = findCell(newGridCopy, cell.rowIndex, cell.cellIndex);
+    if (!cell.open) {
+      return cell;
+    }
+
+    const oldCell = findCell(oldGrid, cell.rowIndex, cell.cellIndex);
     if (oldCell) {
-      newGridCopy[cell.rowIndex][cell.cellIndex] = {
+      oldGrid[cell.rowIndex][cell.cellIndex] = {
         ...oldCell,
         open: cell.open,
         value: cell.value,
       };
     }
+    return oldCell;
   });
 
-  return newGridCopy;
+  return oldGrid;
 };
 
 export const deepCopy = (array: any[]) => {
