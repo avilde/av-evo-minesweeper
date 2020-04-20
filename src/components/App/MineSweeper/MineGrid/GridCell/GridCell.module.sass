@@ -1,3 +1,5 @@
+@import "colors"
+
 .GridCell
   width: 1.5rem
   height: 1.5rem
@@ -7,6 +9,7 @@
   margin: 0.125rem
   cursor: pointer
   font-weight: bold
+  user-select: none
 
   & span
     width: 100%
@@ -16,36 +19,36 @@
     align-items: center
 
   &.Closed
-    background-color: gray
+    background-color: $closed-mine-background-color
 
     &.Flag
       background-color: salmon
-      border-color: red
 
   &.Open
-    background-color: lightgray
+    background-color: $open-mine-background-color
     cursor: default
 
     &[cell-value="*"]
-      background-color: red
+      background-color: $mine-background-color
+      color: $mine-color
 
     &[cell-value="0"]
-      color: lightgray
+      color: $open-mine-background-color
 
     &[cell-value="1"]
-      color: blue
+      color: $one-mine-color
 
     &[cell-value="2"]
-      color: green
+      color: $two-mines-color
     
     &[cell-value="3"]
-      color: red
+      color: $three-mines-color
 
     &[cell-value="4"]
-      color: darkred
+      color: $four-mines-color
 
     &[cell-value="5"]
-      color: purple
+      color: $five-mines-color
 
     &[cell-value="6"]
-      color: darkpurple
+      color: $six-mines-color

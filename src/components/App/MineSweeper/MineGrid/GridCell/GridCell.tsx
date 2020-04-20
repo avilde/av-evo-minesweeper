@@ -5,33 +5,27 @@ import classNames from 'classnames';
 
 export interface GridCellProps {
   cell: Cell;
-  onCellClick: (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    row: number,
-    column: number
-  ) => void;
+  onCellClick: (rowIndex: number, cellIndex: number) => void;
 }
 
-const GridCell = (props: GridCellProps) => {
+const GridCell = React.memo((props: GridCellProps) => {
   const { cell, onCellClick } = props;
-  const { open, flag, value, row, col } = cell;
+  const { open, flag, value, question } = cell;
 
   return (
     <div
       className={classNames(
         classes.GridCell,
         open ? classes.Open : classes.Closed,
-        flag ? classes.Flag : null
+        flag ? classes.Flag : null,
+        question ? classes.QuestionMark : null
       )}
       cell-value={value}
-      onClick={(event) => !open && onCellClick(event, col, row)}
-      onContextMenu={(event) =>
-        !open && onCellClick(event, col, row)
-      }
+      onClick={(event) => !open && onCellClick(cell.rowIndex, cell.cellIndex)}
     >
       <span>{open ? value : null}</span>
     </div>
   );
-};
+});
 
 export default GridCell;

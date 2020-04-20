@@ -1,0 +1,27 @@
+.ModeControl
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 100%
+
+  .Mode
+    display: flex
+    justify-content: center
+    align-items: center
+    margin: 0 1rem
+    border: 0.0625rem solid black
+    padding: 0.25rem
+    cursor: pointer
+
+    &.Active
+      cursor: default
+      background: lightgray
+
+    &.Default
+      color: blue
+
+    &.Flag
+      color: darkred
+
+    &.Question
+      color: gray

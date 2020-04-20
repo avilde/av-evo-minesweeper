@@ -3,12 +3,25 @@ import { MineSweeperContext } from '../../../api/MineSweeperContext';
 import MineGrid, { Cell } from './MineGrid/MineGrid';
 import classes from './MineSweeper.module.sass';
 import classNames from 'classnames';
+import {
+  transformMessageToGrid,
+  updateGridCell,
+  findCell,
+} from '../../../utils/mineGridUtils';
+import ModeControl from './MineGrid/ModeControl/ModeControl';
+
+export enum Mode {
+  DEFAULT = 'default',
+  FLAG = 'flag',
+  QUESTION = 'question',
+}
 
 const MineSweeper = () => {
   const subject = useContext(MineSweeperContext);
   const [, setMessages] = useState<string[]>([]);
   const [grid, setGrid] = useState<Cell[][]>([]);
   const [gameOver, setGameOver] = useState<boolean>(false);
+  const [mode, setMode] = useState<string>(Mode.DEFAULT);
 
   useEffect(() => {
     subject.connect();
@@ -16,36 +29,9 @@ const MineSweeper = () => {
     const onMessageSubscriber = {
       next: (message: string) => {
         if (message.startsWith('map')) {
-          message = message.replace('map:\n', '');
+          const newGrid = transformMessageToGrid(message, grid);
 
-          const newGrid = message
-            .split(String.fromCharCode(10))
-            .reduce((result: Cell[][], row: string, rowIndex: number) => {
-              const newRow = [
-                ...row
-                  .split('')
-                  .reduce((r: Cell[], char: string, columnIndex: number) => {
-                    r.push({
-                      row: rowIndex,
-                      col: columnIndex,
-                      open: char.charCodeAt(0) !== 9633,
-                      flag: grid.length > 0 && grid[columnIndex][rowIndex].flag,
-                      value: char,
-                    });
-
-                    return r;
-                  }, []),
-              ];
-              if (newRow.length > 0) {
-                result.push(newRow);
-              }
-
-              return result;
-            }, []);
-
-          console.log(newGrid);
-
-          setGrid(newGrid);
+          setGrid(() => newGrid);
         }
 
         if (message.includes('You lose')) {
@@ -67,26 +53,45 @@ const MineSweeper = () => {
     subject.sendMessage('map');
   };
 
-  const handleCellClick = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    row: number,
-    column: number
-  ) => {
-    if (event.type === 'contextmenu') {
-      event.preventDefault();
-      setGrid((oldGrid) => {
-        return [...oldGrid].map((cellRow, rowIndex) => {
-          return cellRow.map((cell, cellIndex) => {
-            if (rowIndex === row && cellIndex === column) {
-              return {...cell, flag: !cell.flag}
-            }
-            return cell;
+  const handleCellClick = (rowIndex: number, cellIndex: number) => {
+    console.log('input', rowIndex, cellIndex);
+    const cell = findCell(grid, rowIndex, cellIndex);
+    console.log('found cell', cell);
+
+    if (!cell) {
+      return;
+    }
+
+    switch (mode) {
+      case Mode.DEFAULT: {
+        if (cell.flag || cell.question) {
+          return;
+        }
+
+        subject.sendMessage(`open ${cell.cellIndex} ${cell.rowIndex}`);
+        subject.sendMessage('map');
+        break;
+      }
+
+      case Mode.FLAG: {
+        setGrid(() =>
+          updateGridCell(grid, {
+            ...cell,
+            flag: !cell.flag,
           })
-        })
-      });
-    } else {
-      subject.sendMessage(`open ${row} ${column}`);
-      subject.sendMessage('map');
+        );
+        break;
+      }
+
+      case Mode.QUESTION: {
+        setGrid(() =>
+          updateGridCell(grid, {
+            ...cell,
+            question: !cell.question,
+          })
+        );
+        break;
+      }
     }
   };
 
@@ -97,6 +102,7 @@ const MineSweeper = () => {
         <button onClick={() => newGame(2)}>New Level 2</button>
         <button onClick={() => newGame(3)}>New Level 3</button>
         <button onClick={() => newGame(4)}>New Level 4</button>
+
         <span
           className={classNames(
             classes.GameOver,
@@ -106,7 +112,7 @@ const MineSweeper = () => {
           Game Over
         </span>
       </div>
-
+      <ModeControl mode={mode} setMode={setMode} />
       <MineGrid grid={grid} onCellClick={handleCellClick} />
     </div>
   );

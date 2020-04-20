@@ -3,20 +3,17 @@ import classes from './MineGrid.module.sass';
 import GridCell from './GridCell/GridCell';
 
 export interface Cell {
-  row: number;
-  col: number;
+  rowIndex: number;
+  cellIndex: number;
   value: string;
   flag: boolean;
+  question: boolean;
   open: boolean;
 }
 
 interface MineGridProps {
   grid: Cell[][];
-  onCellClick: (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    row: number,
-    column: number
-  ) => void;
+  onCellClick: (rowIndex: number, cellIndex: number) => void;
 }
 
 const MineGrid = (props: MineGridProps) => {
@@ -24,13 +21,13 @@ const MineGrid = (props: MineGridProps) => {
 
   return (
     <div className={classes.MineGrid}>
-      {grid.map((row: Cell[], rowIndex: number) => {
+      {grid.map((rowOfCells: Cell[], rowIndex) => {
         return (
           <div key={rowIndex} className={classes.Row}>
-            {row.map((cell: Cell, columnIndex: number) => {
+            {rowOfCells.map((cell: Cell) => {
               return (
                 <GridCell
-                  key={columnIndex}
+                  key={`${cell.rowIndex}-${cell.cellIndex}`}
                   cell={cell}
                   onCellClick={onCellClick}
                 />
