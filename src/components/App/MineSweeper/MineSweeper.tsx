@@ -7,6 +7,7 @@ import {
   transformMessageToGrid,
   updateGridCell,
   findCell,
+  MineSweeperCommand,
 } from '../../../utils/mineGridUtils';
 import ModeControl from './MineGrid/ModeControl/ModeControl';
 
@@ -28,7 +29,7 @@ const MineSweeper = () => {
 
     const onMessageSubscriber = {
       next: (message: string) => {
-        if (message.startsWith('map')) {
+        if (message.startsWith(MineSweeperCommand.MAP)) {
           setGrid((oldGrid) => transformMessageToGrid(message, oldGrid));
         }
 
@@ -47,8 +48,9 @@ const MineSweeper = () => {
 
   const newGame = (level: number) => {
     gameOver && setGameOver(false);
-    subject.sendMessage(`new ${level}`);
-    subject.sendMessage('map');
+    setGrid([]);
+    subject.sendMessage(`${MineSweeperCommand.NEW} ${level}`);
+    subject.sendMessage(MineSweeperCommand.MAP);
   };
 
   const handleCellClick = (rowIndex: number, cellIndex: number) => {
@@ -68,8 +70,10 @@ const MineSweeper = () => {
           return;
         }
 
-        subject.sendMessage(`open ${cell.cellIndex} ${cell.rowIndex}`);
-        subject.sendMessage('map');
+        subject.sendMessage(
+          `${MineSweeperCommand.OPEN} ${cell.cellIndex} ${cell.rowIndex}`
+        );
+        subject.sendMessage(MineSweeperCommand.MAP);
         break;
       }
 

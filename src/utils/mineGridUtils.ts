@@ -5,11 +5,17 @@ export enum CharacterCodes {
   WHITE_BLOCK = 9633,
 }
 
+export enum MineSweeperCommand {
+  MAP = 'map',
+  OPEN = 'open',
+  NEW = 'new',
+}
+
 export const transformMessageToGrid = (
   message: string,
   oldGrid: Cell[][]
 ): Cell[][] => {
-  message = message.replace('map:\n', '');
+  message = message.replace(`${MineSweeperCommand.MAP}:\n`, '');
 
   const newGrid = message
     .split(String.fromCharCode(CharacterCodes.LINE_FEED))
