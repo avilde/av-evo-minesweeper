@@ -1,11 +1,12 @@
 import React from 'react';
 import classes from './MineGrid.module.sass';
 import GridCell from './GridCell/GridCell';
+import { MapValue } from '../../../../utils/mineGridUtils';
 
 export interface Cell {
   rowIndex: number;
   cellIndex: number;
-  value: string;
+  value: MapValue;
   flag: boolean;
   question: boolean;
   open: boolean;

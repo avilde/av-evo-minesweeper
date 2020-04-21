@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './ModeControl.module.sass';
 import classNames from 'classnames';
-import { Mode } from '../../MineSweeper';
+import { Mode, modeUiMapping } from '../../../../../utils/mineGridUtils';
 
 export interface ModeControlProps {
   mode: string;
@@ -23,7 +23,7 @@ const ModeControl = (props: ModeControlProps) => {
         onClick={() => setMode(Mode.DEFAULT)}
       >
         <span role="img" aria-label="Bomb">
-          💣
+          {modeUiMapping[Mode.DEFAULT]}
         </span>
         default
       </div>
@@ -36,7 +36,7 @@ const ModeControl = (props: ModeControlProps) => {
         onClick={() => setMode(Mode.FLAG)}
       >
         <span role="img" aria-label="Flag">
-          🚩
+          {modeUiMapping[Mode.FLAG]}
         </span>
         flag
       </div>
@@ -49,7 +49,7 @@ const ModeControl = (props: ModeControlProps) => {
         onClick={() => setMode(Mode.QUESTION)}
       >
         <span role="img" aria-label="Question">
-          ❓
+          {modeUiMapping[Mode.QUESTION]}
         </span>
         question
       </div>

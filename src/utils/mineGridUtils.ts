@@ -1,9 +1,53 @@
 import { Cell } from '../components/App/MineSweeper/MineGrid/MineGrid';
 
-export enum CharacterCodes {
+export enum MapCharacterCode {
   LINE_FEED = 10,
   WHITE_BLOCK = 9633,
 }
+
+export enum MapValue {
+  WHITE_BLOCK = '□',
+  BOMB = '*',
+  ZERO = '០',
+  ONE = '1',
+  TWO = '2',
+  THREE = '3',
+  FOUR = '4',
+  FIVE = '5',
+  SIX = '6',
+}
+
+export const uiValuesMapping = {
+  [MapValue.WHITE_BLOCK]: '',
+  [MapValue.BOMB]: '💣',
+  [MapValue.ZERO]: '0',
+  [MapValue.ONE]: '1',
+  [MapValue.TWO]: '2',
+  [MapValue.THREE]: '3',
+  [MapValue.FOUR]: '4',
+  [MapValue.FIVE]: '5',
+  [MapValue.SIX]: '6',
+};
+
+export enum Mode {
+  DEFAULT = 'default',
+  FLAG = 'flag',
+  QUESTION = 'question',
+}
+
+export const modeUiMapping = {
+  [Mode.DEFAULT]: '💣',
+  [Mode.FLAG]: '🚩',
+  [Mode.QUESTION]: '❓',
+};
+
+export const getUiCharacter = (value: MapValue) => {
+  if (value in uiValuesMapping) {
+    return uiValuesMapping[value];
+  } else {
+    return value;
+  }
+};
 
 export enum MineSweeperCommand {
   MAP = 'map',
@@ -18,7 +62,7 @@ export const transformMessageToGrid = (
   message = message.replace(`${MineSweeperCommand.MAP}:\n`, '');
 
   const newGrid = message
-    .split(String.fromCharCode(CharacterCodes.LINE_FEED))
+    .split(String.fromCharCode(MapCharacterCode.LINE_FEED))
     .reduce((result: Cell[][], messageRow: string, rowIndex: number) => {
       const newRow = [
         ...messageRow
@@ -27,10 +71,10 @@ export const transformMessageToGrid = (
             r.push({
               rowIndex: rowIndex,
               cellIndex: cellIndex,
-              open: character.charCodeAt(0) !== CharacterCodes.WHITE_BLOCK,
+              open: character.charCodeAt(0) !== MapCharacterCode.WHITE_BLOCK,
               flag: false,
               question: false,
-              value: character,
+              value: character as MapValue,
             });
             return r;
           }, []),
@@ -69,7 +113,10 @@ export const findCell = (
   return row[cellIndex];
 };
 
-export const mergeGrids = (existingGrid: Cell[][], newGrid: Cell[][]): Cell[][] => {
+export const mergeGrids = (
+  existingGrid: Cell[][],
+  newGrid: Cell[][]
+): Cell[][] => {
   newGrid.flat().map((cell: Cell) => {
     if (!cell.open) {
       return cell;

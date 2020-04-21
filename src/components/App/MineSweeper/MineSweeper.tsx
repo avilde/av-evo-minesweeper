@@ -8,14 +8,9 @@ import {
   updateGridCell,
   findCell,
   MineSweeperCommand,
+  Mode,
 } from '../../../utils/mineGridUtils';
 import ModeControl from './MineGrid/ModeControl/ModeControl';
-
-export enum Mode {
-  DEFAULT = 'default',
-  FLAG = 'flag',
-  QUESTION = 'question',
-}
 
 const MineSweeper = () => {
   const subject = useContext(MineSweeperContext);

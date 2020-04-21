@@ -2,6 +2,12 @@ import React, { useCallback } from 'react';
 import { Cell } from '../MineGrid';
 import classes from './GridCell.module.sass';
 import classNames from 'classnames';
+import {
+  getUiCharacter,
+  modeUiMapping,
+  MapValue,
+  Mode,
+} from '../../../../../utils/mineGridUtils';
 
 export interface GridCellProps {
   cell: Cell;
@@ -23,9 +29,24 @@ const GridCell = React.memo((props: GridCellProps) => {
         question ? classes.QuestionMark : null
       )}
       cell-value={value}
-      onClick={(event) => !open && onCellClick(cell.rowIndex, cell.cellIndex)}
+      onClick={() => !open && onCellClick(cell.rowIndex, cell.cellIndex)}
     >
-      <span>{open ? value : null}</span>
+      {!open && !flag && !question ? (
+        <span className={classes.FlagIcon}>
+          {getUiCharacter(MapValue.WHITE_BLOCK)}
+        </span>
+      ) : null}
+      {!open && flag ? (
+        <span className={classes.FlagIcon}>{modeUiMapping[Mode.FLAG]}</span>
+      ) : null}
+      {!open && question ? (
+        <span className={classes.QuestionIcon}>
+          {modeUiMapping[Mode.QUESTION]}
+        </span>
+      ) : null}
+      {open ? (
+        <span className={classes.CharIcon}>{getUiCharacter(value)}</span>
+      ) : null}
     </div>
   );
 });

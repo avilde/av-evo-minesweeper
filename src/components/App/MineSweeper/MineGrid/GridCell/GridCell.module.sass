@@ -22,15 +22,25 @@
     background-color: $closed-mine-background-color
 
     &.Flag
-      background-color: salmon
+      font-size: 0.75rem
+      background-color: $open-mine-background-color
+    
+    &.QuestionMark
+      font-size: 0.75rem
+      background-color: $open-mine-background-color
+      
 
   &.Open
     background-color: $open-mine-background-color
     cursor: default
 
     &[cell-value="*"]
+      display: flex
+      align-items: center
+      justify-content: center
       background-color: $mine-background-color
       color: $mine-color
+      font-size: 0.75rem
 
     &[cell-value="0"]
       color: $open-mine-background-color
