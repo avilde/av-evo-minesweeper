@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './MineGrid.module.sass';
 import GridCell from './GridCell/GridCell';
-import { MapValue } from '../../../../utils/mineGridUtils';
+import { MapValue } from '../../../../api/constants';
 
 export interface Cell {
   rowIndex: number;

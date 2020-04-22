@@ -2,9 +2,10 @@ import React, { useState, useEffect, useContext } from 'react';
 import classes from './App.module.sass';
 import MineSweeperGame from './MineSweeperGame/MineSweeperGame';
 import MineSweeperHeader from './MineSweeperHeader/MineSweeperHeader';
-import { Mode } from '../../utils/mineGridUtils';
+
 import { MineSweeperContext } from '../../api/MineSweeperContext';
 import classNames from 'classnames';
+import { Mode } from '../../api/constants';
 
 const App = () => {
   const [newGame, setNewGame] = useState<boolean>(true);

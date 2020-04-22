@@ -1,8 +1,9 @@
 import React from 'react';
 import classes from './MineSweeperHeader.module.sass';
 import logo from '../../../assets/logo.svg';
-import { Mode } from '../../../utils/mineGridUtils';
+
 import ModeControl from './ModeControl/ModeControl';
+import { Mode } from '../../../api/constants';
 
 interface MineSweeperHeaderProps {
   mode: Mode;

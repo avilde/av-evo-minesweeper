@@ -1,4 +1,8 @@
-import { MINESWEEPER_ENDPOINT_URI } from './constants';
+import {
+  MINESWEEPER_ENDPOINT_URI,
+  SocketStatus,
+  MineSweeperCommand,
+} from './constants';
 import {
   webSocket,
   WebSocketSubject,
@@ -7,13 +11,6 @@ import {
 import { NextObserver, Observable, Observer } from 'rxjs';
 import { share, distinctUntilChanged } from 'rxjs/operators';
 import { _debug } from '../utils/commonUtils';
-
-export enum SocketStatus {
-  CREATED = 0,
-  CONNECTED = 1,
-  CLOSED = 2,
-  ERROR = 3,
-}
 
 export class MineSweeperSocketService {
   constructor(
@@ -54,6 +51,10 @@ export class MineSweeperSocketService {
 
   private onMessage = (message: string) => _debug('api message', message);
 
+  private sendMessage = (message: string) => {
+    this.socket?.next(message);
+  };
+
   private webSocketConfig = {
     url: MINESWEEPER_ENDPOINT_URI,
     closeObserver: this.closeObserver,
@@ -73,6 +74,11 @@ export class MineSweeperSocketService {
     return this;
   };
 
+  executeCommand(command: MineSweeperCommand, commandArg?: any) {
+    _debug('api', 'executeCommand', command, commandArg);
+    this.sendMessage(`${command}${commandArg ? ` ${commandArg}` : ''}`);
+  }
+
   onDisconnect = (cb?: Function) => {
     this.socket?.unsubscribe();
 
@@ -83,6 +89,4 @@ export class MineSweeperSocketService {
 
   subscribe = (observer: NextObserver<string>) =>
     this.socket?.subscribe(observer);
-
-  sendMessage = (message: string) => this.socket?.next(message);
 }

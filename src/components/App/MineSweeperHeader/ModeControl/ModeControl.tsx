@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './ModeControl.module.sass';
 import classNames from 'classnames';
-import { Mode, modeUiMapping } from '../../../../utils/mineGridUtils';
+import { Mode, modeUiMapping } from '../../../../api/constants';
 
 export interface ModeControlProps {
   mode: Mode;

@@ -4,10 +4,10 @@ import classes from './GridCell.module.sass';
 import classNames from 'classnames';
 import {
   getUiCharacter,
-  modeUiMapping,
   MapValue,
+  modeUiMapping,
   Mode,
-} from '../../../../../utils/mineGridUtils';
+} from '../../../../../api/constants';
 
 export interface GridCellProps {
   cell: Cell;

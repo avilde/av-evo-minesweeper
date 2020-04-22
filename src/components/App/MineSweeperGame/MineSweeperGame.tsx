@@ -7,14 +7,17 @@ import {
   transformMessageToGrid,
   updateGridCell,
   findCell,
-  MineSweeperCommand,
-  Mode,
-  MineSweeperResponse,
-} from '../../../utils/mineGridUtils';
-import { SocketStatus } from '../../../api/MineSweeperService';
+} from './MineGrid/mineGridUtils';
 import { _debug } from '../../../utils/commonUtils';
 import MineSweeperNewGame from './MineSweeperNewGame/MineSweeperNewGame';
 import MineSweeperGameOver from './MineSweeperGameOver/MineSweeperGameOver';
+import {
+  Mode,
+  MineSweeperResponse,
+  SocketStatus,
+  MineSweeperCommand,
+  MineSweeperLevel,
+} from '../../../api/constants';
 
 export interface MineSweeperGameProps {
   mode: Mode;
@@ -26,9 +29,12 @@ export interface MineSweeperGameProps {
 
 const MineSweeperGame = (props: MineSweeperGameProps) => {
   const { gameOver, setGameOver, mode, newGame, setNewGame } = props;
-  const subject = useContext(MineSweeperContext);
+  const socket = useContext(MineSweeperContext);
   const [, setMessages] = useState<string[]>([]);
   const [grid, setGrid] = useState<Cell[][]>([]);
+  const [currentLevel, setCurrentLevel] = useState<number>(
+    MineSweeperLevel.EASY
+  );
 
   useEffect(() => {
     if (!gameOver || newGame) {
@@ -43,7 +49,7 @@ const MineSweeperGame = (props: MineSweeperGameProps) => {
           setGrid((oldGrid) => transformMessageToGrid(message, oldGrid));
         }
 
-        if (message.includes(MineSweeperResponse.GAME_OVER.toLowerCase())) {
+        if (message.toLowerCase().includes(MineSweeperResponse.GAME_OVER)) {
           setGameOver(true);
         }
 
@@ -55,13 +61,13 @@ const MineSweeperGame = (props: MineSweeperGameProps) => {
       next: (status: number) => {
         _debug('socket status', status);
         if (status === SocketStatus.CONNECTED) {
-          subject.subscribe(onMessageSubscriber);
+          socket.subscribe(onMessageSubscriber);
         }
       },
     };
-    _debug('subscribe status');
-    subject.socketStatus?.subscribe(onSocketStatusSubscriber);
-  }, [subject, setGameOver]);
+
+    socket.socketStatus?.subscribe(onSocketStatusSubscriber);
+  }, [socket, setGameOver]);
 
   const handleCellClick = (rowIndex: number, cellIndex: number) => {
     if (gameOver) {
@@ -80,10 +86,11 @@ const MineSweeperGame = (props: MineSweeperGameProps) => {
           return;
         }
 
-        subject.sendMessage(
-          `${MineSweeperCommand.OPEN} ${cell.cellIndex} ${cell.rowIndex}`
+        socket.executeCommand(
+          MineSweeperCommand.OPEN,
+          `${cell.cellIndex} ${cell.rowIndex}`
         );
-        subject.sendMessage(MineSweeperCommand.MAP);
+        socket.executeCommand(MineSweeperCommand.MAP);
         break;
       }
 
@@ -112,19 +119,24 @@ const MineSweeperGame = (props: MineSweeperGameProps) => {
   return (
     <div className={classes.MineSweeper}>
       {newGame && !gameOver ? (
-        <MineSweeperNewGame setNewGame={setNewGame} setGameOver={setGameOver} />
-      ) : null}
-
-      {!newGame && gameOver ? (
-        <MineSweeperGameOver
+        <MineSweeperNewGame
           setNewGame={setNewGame}
           setGameOver={setGameOver}
+          setCurrentLevel={setCurrentLevel}
         />
       ) : null}
 
-      {!newGame && !gameOver ? (
-        <MineGrid grid={grid} onCellClick={handleCellClick} />
+      {!newGame ? (
+        <MineSweeperGameOver
+          gameOver={gameOver}
+          setNewGame={setNewGame}
+          setGameOver={setGameOver}
+          currentLevel={currentLevel}
+          setCurrentLevel={setCurrentLevel}
+        />
       ) : null}
+
+      {!newGame ? <MineGrid grid={grid} onCellClick={handleCellClick} /> : null}
     </div>
   );
 };

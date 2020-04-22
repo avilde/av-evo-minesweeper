@@ -1,32 +1,37 @@
 import React, { useContext } from 'react';
 import classes from './MineSweeperNewGame.module.sass';
 import { MineSweeperContext } from '../../../../api/MineSweeperContext';
-import { MineSweeperCommand } from '../../../../utils/mineGridUtils';
+import {
+  MineSweeperCommand,
+  MineSweeperLevel,
+} from '../../../../api/constants';
 
 interface MineSweeperNewGameProps {
   setGameOver: React.Dispatch<React.SetStateAction<boolean>>;
   setNewGame: React.Dispatch<React.SetStateAction<boolean>>;
+  setCurrentLevel: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const MineSweeperNewGame = (props: MineSweeperNewGameProps) => {
-  const { setGameOver, setNewGame } = props;
+  const { setGameOver, setNewGame, setCurrentLevel } = props;
 
-  const subject = useContext(MineSweeperContext);
+  const socket = useContext(MineSweeperContext);
 
-  const newGame = (level: number) => {
+  const newGame = (level: MineSweeperLevel) => {
     setGameOver(false);
+    setCurrentLevel(level);
     setNewGame(false);
-    subject.sendMessage(`${MineSweeperCommand.NEW} ${level}`);
-    subject.sendMessage(MineSweeperCommand.MAP);
+    socket.executeCommand(MineSweeperCommand.NEW, level);
+    socket.executeCommand(MineSweeperCommand.MAP);
   };
 
   return (
     <div className={classes.MineSweeperNewGame}>
       <div className={classes.Controls}>
-        <button onClick={() => newGame(1)}>Easy</button>
-        <button onClick={() => newGame(2)}>Hard</button>
-        <button onClick={() => newGame(3)}>Expert</button>
-        <button onClick={() => newGame(4)}>Master</button>
+        <button onClick={() => newGame(MineSweeperLevel.EASY)}>Easy</button>
+        <button onClick={() => newGame(MineSweeperLevel.NORMAL)}>Normal</button>
+        <button onClick={() => newGame(MineSweeperLevel.HARD)}>Hard</button>
+        <button onClick={() => newGame(MineSweeperLevel.EXPERT)}>Expert</button>
       </div>
     </div>
   );
