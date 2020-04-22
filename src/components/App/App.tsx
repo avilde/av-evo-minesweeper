@@ -38,7 +38,10 @@ const App = () => {
         />
       </main>
 
-      {showHelp ? <div>help</div> : null}
+      {showHelp ? <div className={classes.HelpDialog}>
+        <div className={classes.Header}>Help</div>
+        <div className={classes.Body}>Legend</div>
+      </div> : null}
     </div>
   );
 };
