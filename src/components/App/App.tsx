@@ -8,6 +8,7 @@ import classNames from 'classnames';
 
 const App = () => {
   const [gameOver, setGameOver] = useState<boolean>(false);
+  const [showHelp, setShowHelp] = useState<boolean>(false);
   const [mode, setMode] = useState<Mode>(Mode.DEFAULT);
   const subject = useContext(MineSweeperContext);
 
@@ -24,6 +25,7 @@ const App = () => {
         setMode={setMode}
         gameOver={gameOver}
         setGameOver={setGameOver}
+        setShowHelp={setShowHelp}
       />
 
       <main className={classes.Main}>
@@ -33,6 +35,8 @@ const App = () => {
           setGameOver={setGameOver}
         />
       </main>
+
+      {showHelp ? <div>help</div> : null}
     </div>
   );
 };

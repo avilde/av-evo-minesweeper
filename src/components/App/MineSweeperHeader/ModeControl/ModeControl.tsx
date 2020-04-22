@@ -6,14 +6,26 @@ import { Mode, modeUiMapping } from '../../../../utils/mineGridUtils';
 export interface ModeControlProps {
   mode: Mode;
   setMode: React.Dispatch<React.SetStateAction<Mode>>;
+  setShowHelp: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ModeControl = (props: ModeControlProps) => {
-  const { mode, setMode } = props;
+  const { mode, setMode, setShowHelp } = props;
 
   return (
     <div className={classes.ModeControl}>
-      <div>Mode: </div>
+      <div className={classes.ModeLabel}>
+        <div
+          className={classes.Info}
+          aria-label="Info Icon"
+          role="icon"
+          title="Click for help"
+          onClick={() => setShowHelp(true)}
+        >
+          🛈
+        </div>
+        Mode
+      </div>
       <div
         className={classNames(
           classes.Mode,

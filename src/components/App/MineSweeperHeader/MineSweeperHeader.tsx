@@ -11,6 +11,7 @@ interface MineSweeperHeaderProps {
   setGameOver: React.Dispatch<React.SetStateAction<boolean>>;
   mode: Mode;
   setMode: React.Dispatch<React.SetStateAction<Mode>>;
+  setShowHelp: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const MineSweeperHeader = (props: MineSweeperHeaderProps) => {
