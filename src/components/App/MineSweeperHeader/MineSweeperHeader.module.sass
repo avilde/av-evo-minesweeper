@@ -2,25 +2,48 @@
 @import "dimensions"
 
 .MineSweeperHeader 
-  background-color: $secondary-background-color
+  background-color: $secondary-lighter-background-color
   height: $app-header-height
   display: flex
   align-items: center
-  color: white
-
-  .Title
-    width: 15rem
-    font-size: 1.25rem
+  box-shadow: 0 0 0.125rem 0.25rem $header-shadow-color
 
   .Logo
     height: 3rem
     width: 3rem
-    margin-left: 1rem
+    padding-left: 1rem
     cursor: pointer
+    background-color: $secondary-background-color
 
     img
       height: 3rem
       width: 3rem
+
+  .Title
+    height: 3rem
+    line-height: 3rem
+    width: 15rem
+    font-size: 1.25rem
+    background-color: $secondary-background-color
+    transition: width 0.3s linear
+    overflow: hidden
+    color: $header-color
+
+  .Corner
+    width: 3rem
+    height: 3rem
+
+    &::after
+      content: ''
+      position: relative
+      bottom: -2rem
+      right: 0rem
+      border-right: 1.5rem solid transparent
+      border-top: 2rem solid $secondary-background-color
+      user-select: none
+      pointer-events: none
+      height: 2rem
+      animation: all 0.3s ease-in-out
 
 @media (prefers-reduced-motion: no-preference) 
   .MineSweeperHeader 
@@ -36,14 +59,16 @@
 
 @media screen and ( max-width:  60rem)
   .MineSweeperHeader
+    .Title
+      width: 0rem
+      
+      &::after
+        display: none
+
     .Logo
-      margin-left: 0.5rem
+      padding-left: 0
 
-    .Title
-      font-size: 0.75rem
-
-@media screen and ( max-width:  40rem)
-  .MineSweeperHeader
-
-    .Title
-      display: none
+    .Corner::after
+      bottom: -1rem
+      border-right-width: 1rem
+      border-top-width: 1rem

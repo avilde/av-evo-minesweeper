@@ -27,6 +27,8 @@ const MineSweeperHeader = (props: MineSweeperHeaderProps) => {
 
       <div className={classes.Title}>AV Mine Sweeper</div>
 
+      <div className={classes.Corner}></div>
+
       <ModeControl {...props} />
     </header>
   );
