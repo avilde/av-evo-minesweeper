@@ -24,20 +24,20 @@
     background-color: $mode-background-color
     cursor: pointer
 
-    .Description
-      display: inline-block
-
     &.Active
       cursor: default
       border-color: $mode-active-border-color
       background-color: $mode-active-background-color
       color: $mode-active-color
 
-    &.Question
-      .ModeIcon
-        filter: grayscale(1)
+    &:not(.Active):hover
+      opacity: 0.9
+      background-color: $mode-active-color
 
-  .Help
+    .Description
+      display: inline-block
+
+  .HelpIcon
     display: inherit
     font-size: 1.5rem
     margin: 0 0.5rem

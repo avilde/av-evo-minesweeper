@@ -33,25 +33,28 @@ const MineSweeperGameOver = (props: MineSweeperGameOverProps) => {
         gameOver ? classes.Visible : null
       )}
     >
-      Game Over
-      <button
-        onClick={() => {
-          socket.executeCommand(MineSweeperCommand.NEW, currentLevel);
-          socket.executeCommand(MineSweeperCommand.MAP);
-          setGameOver(false);
-        }}
-      >
-        Restart
-      </button>
-      <button
-        onClick={() => {
-          setCurrentLevel(MineSweeperLevel.EASY);
-          setNewGame(true);
-          setGameOver(false);
-        }}
-      >
-        New Game
-      </button>
+      <div className={classes.GameOverTitle}>Game Over</div>
+
+      <div className={classes.ButtonContainer}>
+        <button
+          onClick={() => {
+            socket.executeCommand(MineSweeperCommand.NEW, currentLevel);
+            socket.executeCommand(MineSweeperCommand.MAP);
+            setGameOver(false);
+          }}
+        >
+          Restart
+        </button>
+        <button
+          onClick={() => {
+            setCurrentLevel(MineSweeperLevel.EASY);
+            setNewGame(true);
+            setGameOver(false);
+          }}
+        >
+          New Game
+        </button>
+      </div>
     </div>
   );
 };

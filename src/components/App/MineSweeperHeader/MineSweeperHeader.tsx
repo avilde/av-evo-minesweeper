@@ -12,9 +12,18 @@ interface MineSweeperHeaderProps {
 }
 
 const MineSweeperHeader = (props: MineSweeperHeaderProps) => {
+  const handleOnLogoClick = () => {
+    const confirmResult = window.confirm('Do you really want to reload page?');
+    if (confirmResult) {
+      window.location.reload();
+    }
+  };
+
   return (
     <header className={classes.MineSweeperHeader}>
-      <img src={logo} className={classes.Logo} alt="Av Mine Sweeper logo" />
+      <div className={classes.Logo} onClick={handleOnLogoClick}>
+        <img src={logo} alt="Av Mine Sweeper logo" />
+      </div>
 
       <div className={classes.Title}>AV Mine Sweeper</div>
 

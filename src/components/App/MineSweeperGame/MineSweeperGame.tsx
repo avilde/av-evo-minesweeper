@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { MineSweeperContext } from '../../../api/MineSweeperContext';
 import MineGrid, { Cell } from './MineGrid/MineGrid';
-import classes from './MineSweeper.module.sass';
+import classes from './MineSweeperGame.module.sass';
 
 import {
   transformMessageToGrid,
@@ -18,6 +18,7 @@ import {
   MineSweeperCommand,
   MineSweeperLevel,
 } from '../../../api/constants';
+import classNames from 'classnames';
 
 export interface MineSweeperGameProps {
   mode: Mode;
@@ -117,7 +118,12 @@ const MineSweeperGame = (props: MineSweeperGameProps) => {
   };
 
   return (
-    <div className={classes.MineSweeper}>
+    <div
+      className={classNames(
+        classes.MineSweeper,
+        gameOver ? classes.GameOver : null
+      )}
+    >
       {newGame && !gameOver ? (
         <MineSweeperNewGame
           setNewGame={setNewGame}

@@ -12,15 +12,21 @@
     width: 15rem
     font-size: 1.25rem
 
-  .Logo 
-    height: 2rem
-    pointer-events: none
+  .Logo
+    height: 3rem
+    width: 3rem
     margin-left: 1rem
+    cursor: pointer
+
+    img
+      height: 3rem
+      width: 3rem
 
 @media (prefers-reduced-motion: no-preference) 
   .MineSweeperHeader 
-    .Logo 
-      animation: logo-spin infinite 20s linear
+    .Logo
+      img
+        animation: logo-spin infinite 20s linear
 
 @keyframes logo-spin 
   from 
@@ -34,10 +40,10 @@
       margin-left: 0.5rem
 
     .Title
-        font-size: 0.75rem
+      font-size: 0.75rem
 
 @media screen and ( max-width:  40rem)
   .MineSweeperHeader
 
     .Title
-        display: none
+      display: none

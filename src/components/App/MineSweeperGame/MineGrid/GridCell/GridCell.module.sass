@@ -1,14 +1,15 @@
 @import "colors"
 
 .GridCell
-  width: 1.5rem
-  height: 1.5rem
+  min-width: 1.5rem
+  min-height: 1.5rem
   display: flex
   justify-content: center
   align-items: center
   margin: 0.125rem
   font-weight: bold
   user-select: none
+  border-radius: 0.25rem
 
   & span
     width: 100%
@@ -61,3 +62,17 @@
 
     &[cell-value="6"]
       color: $six-mines-color
+
+@media screen and ( max-width:  60rem)
+  .GridCell
+    margin: 0.25rem
+    min-width: 3rem
+    min-height: 3rem
+    font-size: 1.5rem
+
+    &.Closed
+      &.Flag, &.QuestionMark
+        font-size: 1.5rem
+
+    &.Open[cell-value="*"]
+      font-size: 1.5rem

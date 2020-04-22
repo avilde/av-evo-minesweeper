@@ -1,10 +1,31 @@
+@import 'colors'
+  
 .MineSweeperGameOver
   display: flex
-  justify-content: center
+  flex-direction: column
+  justify-content: space-around
   align-items: center
-  width: 100%
+  width: 100vw
   visibility: hidden
-  height: 2rem
+  height: 0
+  transition: height 0.3s linear
+  background-color: $mine-background-color
+  color: $mine-color
 
   &.Visible
     visibility: visible
+    height: 5rem
+
+  .GameOverTitle
+    display: inherit
+    font-size: 1.5rem
+
+  .ButtonContainer
+    display: inherit
+
+    button
+      box-shadow: none
+      border: 0.0625rem solid $mine-color
+      margin: 0 1rem
+      border-radius: 0.25rem
+      height: 2rem
