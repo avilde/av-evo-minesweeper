@@ -13,33 +13,37 @@ import {
 } from '../../../utils/mineGridUtils';
 import { SocketStatus } from '../../../api/MineSweeperService';
 import { _debug } from '../../../utils/commonUtils';
+import MineSweeperNewGame from './MineSweeperNewGame/MineSweeperNewGame';
+import MineSweeperGameOver from './MineSweeperGameOver/MineSweeperGameOver';
 
 export interface MineSweeperGameProps {
   mode: Mode;
   gameOver: boolean;
   setGameOver: React.Dispatch<React.SetStateAction<boolean>>;
+  newGame: boolean;
+  setNewGame: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const MineSweeperGame = (props: MineSweeperGameProps) => {
-  const { gameOver, setGameOver, mode } = props;
+  const { gameOver, setGameOver, mode, newGame, setNewGame } = props;
   const subject = useContext(MineSweeperContext);
   const [, setMessages] = useState<string[]>([]);
   const [grid, setGrid] = useState<Cell[][]>([]);
 
   useEffect(() => {
-    if (!gameOver) {
+    if (!gameOver || newGame) {
       setGrid([]);
     }
-  }, [gameOver]);
+  }, [gameOver, newGame]);
 
   useEffect(() => {
     const onMessageSubscriber = {
       next: (message: string) => {
-        if (message.startsWith(MineSweeperResponse.MAP)) {
+        if (message.startsWith(MineSweeperResponse.MAP.toLowerCase())) {
           setGrid((oldGrid) => transformMessageToGrid(message, oldGrid));
         }
 
-        if (message.includes(MineSweeperResponse.GAME_OVER)) {
+        if (message.includes(MineSweeperResponse.GAME_OVER.toLowerCase())) {
           setGameOver(true);
         }
 
@@ -107,7 +111,20 @@ const MineSweeperGame = (props: MineSweeperGameProps) => {
 
   return (
     <div className={classes.MineSweeper}>
-      <MineGrid grid={grid} onCellClick={handleCellClick} />
+      {newGame && !gameOver ? (
+        <MineSweeperNewGame setNewGame={setNewGame} setGameOver={setGameOver} />
+      ) : null}
+
+      {!newGame && gameOver ? (
+        <MineSweeperGameOver
+          setNewGame={setNewGame}
+          setGameOver={setGameOver}
+        />
+      ) : null}
+
+      {!newGame && !gameOver ? (
+        <MineGrid grid={grid} onCellClick={handleCellClick} />
+      ) : null}
     </div>
   );
 };
