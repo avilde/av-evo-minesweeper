@@ -1,0 +1,30 @@
+@import "colors"
+@import "dimensions"
+
+.MineSweeperHeader 
+  background-color: $secondary-background-color
+  height: $app-header-height
+  display: flex
+  align-items: center
+  color: white
+
+  .Logo 
+    height: 2rem
+    pointer-events: none
+    margin-left: 1rem
+
+    svg
+      fill: red
+
+@media (prefers-reduced-motion: no-preference) 
+  .MineSweeperHeader 
+    .Logo 
+      animation: logo-spin infinite 20s linear
+
+@keyframes logo-spin 
+  from 
+    transform: rotate(0deg) 
+  to 
+    transform: rotate(360deg)
+  
+

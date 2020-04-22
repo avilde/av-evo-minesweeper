@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { MineSweeperContext } from '../../../api/MineSweeperContext';
 import MineGrid, { Cell } from './MineGrid/MineGrid';
 import classes from './MineSweeper.module.sass';
-import classNames from 'classnames';
+
 import {
   transformMessageToGrid,
   updateGridCell,
@@ -10,18 +10,26 @@ import {
   MineSweeperCommand,
   Mode,
 } from '../../../utils/mineGridUtils';
-import ModeControl from './MineGrid/ModeControl/ModeControl';
 
-const MineSweeper = () => {
+export interface MineSweeperGameProps {
+  mode: Mode;
+  gameOver: boolean;
+  setGameOver: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const MineSweeperGame = (props: MineSweeperGameProps) => {
+  const { gameOver, setGameOver, mode } = props;
   const subject = useContext(MineSweeperContext);
   const [, setMessages] = useState<string[]>([]);
   const [grid, setGrid] = useState<Cell[][]>([]);
-  const [gameOver, setGameOver] = useState<boolean>(false);
-  const [mode, setMode] = useState<string>(Mode.DEFAULT);
 
   useEffect(() => {
-    subject.connect();
+    if (!gameOver) {
+      setGrid([]);
+    }
+  }, [gameOver]);
 
+  useEffect(() => {
     const onMessageSubscriber = {
       next: (message: string) => {
         if (message.startsWith(MineSweeperCommand.MAP)) {
@@ -37,16 +45,7 @@ const MineSweeper = () => {
     };
 
     subject.subscribe(onMessageSubscriber);
-
-    return () => subject.disconnect();
-  }, [subject]);
-
-  const newGame = (level: number) => {
-    gameOver && setGameOver(false);
-    setGrid([]);
-    subject.sendMessage(`${MineSweeperCommand.NEW} ${level}`);
-    subject.sendMessage(MineSweeperCommand.MAP);
-  };
+  }, [subject, setGameOver]);
 
   const handleCellClick = (rowIndex: number, cellIndex: number) => {
     if (gameOver) {
@@ -96,25 +95,9 @@ const MineSweeper = () => {
 
   return (
     <div className={classes.MineSweeper}>
-      <div className={classes.Controls}>
-        <button onClick={() => newGame(1)}>New Level 1</button>
-        <button onClick={() => newGame(2)}>New Level 2</button>
-        <button onClick={() => newGame(3)}>New Level 3</button>
-        <button onClick={() => newGame(4)}>New Level 4</button>
-
-        <span
-          className={classNames(
-            classes.GameOver,
-            gameOver ? null : classes.Hidden
-          )}
-        >
-          Game Over
-        </span>
-      </div>
-      <ModeControl mode={mode} setMode={setMode} />
       <MineGrid grid={grid} onCellClick={handleCellClick} />
     </div>
   );
 };
 
-export default MineSweeper;
+export default MineSweeperGame;

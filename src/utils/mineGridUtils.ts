@@ -1,4 +1,4 @@
-import { Cell } from '../components/App/MineSweeper/MineGrid/MineGrid';
+import { Cell } from '../components/App/MineSweeperGame/MineGrid/MineGrid';
 
 export enum MapCharacterCode {
   LINE_FEED = 10,

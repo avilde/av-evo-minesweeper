@@ -1,3 +1,5 @@
+@import "colors"
+
 .ModeControl
   display: flex
   justify-content: center
@@ -9,19 +11,13 @@
     justify-content: center
     align-items: center
     margin: 0 1rem
-    border: 0.0625rem solid black
+    border: 0.0625rem solid $mode-border-color
+    background-color: $mode-background-color
     padding: 0.25rem
     cursor: pointer
 
     &.Active
       cursor: default
-      background: lightgray
-
-    &.Default
-      color: blue
-
-    &.Flag
-      color: darkred
-
-    &.Question
-      color: gray
+      border-color: $mode-active-border-color
+      background-color: $mode-active-background-color
+      color: $mode-active-color

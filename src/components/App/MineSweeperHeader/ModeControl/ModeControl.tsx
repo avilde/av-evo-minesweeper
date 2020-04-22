@@ -1,11 +1,11 @@
 import React from 'react';
 import classes from './ModeControl.module.sass';
 import classNames from 'classnames';
-import { Mode, modeUiMapping } from '../../../../../utils/mineGridUtils';
+import { Mode, modeUiMapping } from '../../../../utils/mineGridUtils';
 
 export interface ModeControlProps {
-  mode: string;
-  setMode: React.Dispatch<React.SetStateAction<string>>;
+  mode: Mode;
+  setMode: React.Dispatch<React.SetStateAction<Mode>>;
 }
 
 const ModeControl = (props: ModeControlProps) => {
