@@ -24,7 +24,7 @@ const ModeControl = (props: ModeControlProps) => {
         )}
         onClick={() => setMode(Mode.DEFAULT)}
       >
-        <span role="img" aria-label={Mode.DEFAULT}>
+        <span className={classes.ModeIcon} role="img" aria-label={Mode.DEFAULT}>
           {modeUiMapping[Mode.DEFAULT]}
         </span>
         <span className={classes.Description}>{Mode.DEFAULT}</span>
@@ -38,7 +38,7 @@ const ModeControl = (props: ModeControlProps) => {
         )}
         onClick={() => setMode(Mode.FLAG)}
       >
-        <span role="img" aria-label={Mode.FLAG}>
+        <span className={classes.ModeIcon} role="img" aria-label={Mode.FLAG}>
           {modeUiMapping[Mode.FLAG]}
         </span>
 
@@ -53,7 +53,11 @@ const ModeControl = (props: ModeControlProps) => {
         )}
         onClick={() => setMode(Mode.QUESTION)}
       >
-        <span role="img" aria-label={Mode.QUESTION}>
+        <span
+          className={classes.ModeIcon}
+          role="img"
+          aria-label={Mode.QUESTION}
+        >
           {modeUiMapping[Mode.QUESTION]}
         </span>
 
