@@ -14,18 +14,8 @@ const ModeControl = (props: ModeControlProps) => {
 
   return (
     <div className={classes.ModeControl}>
-      <div className={classes.ModeLabel}>
-        <div
-          className={classes.Info}
-          aria-label="Info Icon"
-          role="img"
-          title="Click for help"
-          onClick={() => setShowHelp(true)}
-        >
-          🛈
-        </div>
-        Mode
-      </div>
+      <div className={classes.ModeLabel}>Mode</div>
+
       <div
         className={classNames(
           classes.Mode,
@@ -34,11 +24,12 @@ const ModeControl = (props: ModeControlProps) => {
         )}
         onClick={() => setMode(Mode.DEFAULT)}
       >
-        <span role="img" aria-label="Bomb">
+        <span role="img" aria-label={Mode.DEFAULT}>
           {modeUiMapping[Mode.DEFAULT]}
         </span>
-        default
+        <span className={classes.Description}>{Mode.DEFAULT}</span>
       </div>
+
       <div
         className={classNames(
           classes.Mode,
@@ -47,11 +38,13 @@ const ModeControl = (props: ModeControlProps) => {
         )}
         onClick={() => setMode(Mode.FLAG)}
       >
-        <span role="img" aria-label="Flag">
+        <span role="img" aria-label={Mode.FLAG}>
           {modeUiMapping[Mode.FLAG]}
         </span>
-        flag
+
+        <span className={classes.Description}>{Mode.FLAG}</span>
       </div>
+
       <div
         className={classNames(
           classes.Mode,
@@ -60,10 +53,21 @@ const ModeControl = (props: ModeControlProps) => {
         )}
         onClick={() => setMode(Mode.QUESTION)}
       >
-        <span role="img" aria-label="Question">
+        <span role="img" aria-label={Mode.QUESTION}>
           {modeUiMapping[Mode.QUESTION]}
         </span>
-        question
+
+        <span className={classes.Description}>{Mode.QUESTION}</span>
+      </div>
+
+      <div
+        className={classes.HelpIcon}
+        aria-label="Help Icon"
+        role="img"
+        title="Click for help"
+        onClick={() => setShowHelp(true)}
+      >
+        🛈
       </div>
     </div>
   );
