@@ -5,17 +5,18 @@ import {
   WebSocketSubjectConfig,
 } from 'rxjs/webSocket';
 import { NextObserver } from 'rxjs';
+import { debug } from '../utils/commonUtils';
 
 export class MineSweeperSocketService {
   constructor(private subject: WebSocketSubject<string> | null = null) {}
 
-  private onError = (error: string) => console.error(error);
+  private onError = (error: string) => debug('api error', error);
 
   private onClose = () => {
-    console.log('DISCONNECTED');
+    debug('api', 'disconnected');
   };
 
-  private onMessage = (message: string) => console.log(message);
+  private onMessage = (message: string) => debug('api message', message);
 
   private webSocketConfig = {
     url: MINESWEEPER_ENDPOINT_URI,
