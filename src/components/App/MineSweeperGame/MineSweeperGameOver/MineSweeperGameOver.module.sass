@@ -5,16 +5,20 @@
   flex-direction: column
   justify-content: space-around
   align-items: center
-  width: 100vw
+  position: absolute
+  right: 0
+  left: 0
+  top: 30%
+  width: 100%
   visibility: hidden
   height: 0
   transition: height 0.3s linear
-  background-color: $mine-background-color
+  background-color: $game-over-background-color
   color: $mine-color
 
   &.Visible
     visibility: visible
-    height: 5rem
+    height: 8rem
 
   .GameOverTitle
     display: inherit
