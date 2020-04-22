@@ -9,7 +9,10 @@ import {
   findCell,
   MineSweeperCommand,
   Mode,
+  MineSweeperResponse,
 } from '../../../utils/mineGridUtils';
+import { SocketStatus } from '../../../api/MineSweeperService';
+import { _debug } from '../../../utils/commonUtils';
 
 export interface MineSweeperGameProps {
   mode: Mode;
@@ -32,11 +35,11 @@ const MineSweeperGame = (props: MineSweeperGameProps) => {
   useEffect(() => {
     const onMessageSubscriber = {
       next: (message: string) => {
-        if (message.startsWith(MineSweeperCommand.MAP)) {
+        if (message.startsWith(MineSweeperResponse.MAP)) {
           setGrid((oldGrid) => transformMessageToGrid(message, oldGrid));
         }
 
-        if (message.includes('You lose')) {
+        if (message.includes(MineSweeperResponse.GAME_OVER)) {
           setGameOver(true);
         }
 
@@ -44,7 +47,16 @@ const MineSweeperGame = (props: MineSweeperGameProps) => {
       },
     };
 
-    subject.subscribe(onMessageSubscriber);
+    const onSocketStatusSubscriber = {
+      next: (status: number) => {
+        _debug('socket status', status);
+        if (status === SocketStatus.CONNECTED) {
+          subject.subscribe(onMessageSubscriber);
+        }
+      },
+    };
+    _debug('subscribe status');
+    subject.socketStatus?.subscribe(onSocketStatusSubscriber);
   }, [subject, setGameOver]);
 
   const handleCellClick = (rowIndex: number, cellIndex: number) => {

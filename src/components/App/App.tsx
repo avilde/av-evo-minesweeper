@@ -15,7 +15,7 @@ const App = () => {
   useEffect(() => {
     subject.connect();
 
-    return () => subject.disconnect();
+    return () => subject.onDisconnect();
   }, [subject]);
 
   return (

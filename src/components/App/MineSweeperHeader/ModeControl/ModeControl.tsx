@@ -18,7 +18,7 @@ const ModeControl = (props: ModeControlProps) => {
         <div
           className={classes.Info}
           aria-label="Info Icon"
-          role="icon"
+          role="img"
           title="Click for help"
           onClick={() => setShowHelp(true)}
         >

@@ -50,9 +50,15 @@ export const getUiCharacter = (value: MapValue) => {
 };
 
 export enum MineSweeperCommand {
+  HELP = 'help',
   MAP = 'map',
-  OPEN = 'open',
   NEW = 'new',
+  OPEN = 'open',
+}
+
+export enum MineSweeperResponse {
+  MAP = 'map',
+  GAME_OVER = 'you lose',
 }
 
 export const transformMessageToGrid = (
