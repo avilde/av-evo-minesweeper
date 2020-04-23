@@ -1,36 +1,50 @@
 import React from 'react';
 import classes from './MineGrid.module.sass';
 import GridCell from './GridCell/GridCell';
-import { MapValue } from '../../../../api/constants';
-
-export interface Cell {
-  rowIndex: number;
-  cellIndex: number;
-  value: MapValue;
-  flag: boolean;
-  question: boolean;
-  open: boolean;
-}
+import { MapValue, MapCharacterCode, Mode } from '../../../../api/constants';
 
 interface MineGridProps {
-  grid: Cell[][];
-  onCellClick: (rowIndex: number, cellIndex: number) => void;
+  grid: string;
+  mode: Mode;
+  gameOver: boolean;
 }
 
 const MineGrid = (props: MineGridProps) => {
-  const { grid, onCellClick } = props;
+  const { grid, mode, gameOver } = props;
+
+  const newGrid = grid
+    .split(String.fromCharCode(MapCharacterCode.LINE_FEED))
+    .reduce((result: string[][], messageRow: string, rowIndex: number) => {
+      const newRow = [
+        ...messageRow
+          .split('')
+          .reduce((r: MapValue[], character: string, cellIndex: number) => {
+            r.push(character as MapValue);
+            return r;
+          }, []),
+      ];
+
+      if (newRow.length > 0) {
+        result.push(newRow);
+      }
+
+      return result;
+    }, []);
 
   return (
     <div className={classes.MineGrid}>
-      {grid.map((rowOfCells: Cell[], rowIndex) => {
+      {newGrid.map((rowOfCells: string[], rowIndex) => {
         return (
           <div key={rowIndex} className={classes.Row}>
-            {rowOfCells.map((cell: Cell) => {
+            {rowOfCells.map((value: string, cellIndex: number) => {
               return (
                 <GridCell
-                  key={`${cell.rowIndex}-${cell.cellIndex}`}
-                  cell={cell}
-                  onCellClick={onCellClick}
+                  key={`${rowIndex}-${cellIndex}`}
+                  value={value as MapValue}
+                  rowIndex={rowIndex}
+                  cellIndex={cellIndex}
+                  mode={mode}
+                  gameOver={gameOver}
                 />
               );
             })}

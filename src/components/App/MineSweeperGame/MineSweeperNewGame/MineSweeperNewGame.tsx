@@ -10,15 +10,17 @@ interface MineSweeperNewGameProps {
   setGameOver: React.Dispatch<React.SetStateAction<boolean>>;
   setNewGame: React.Dispatch<React.SetStateAction<boolean>>;
   setCurrentLevel: React.Dispatch<React.SetStateAction<number>>;
+  setGameOverMessage: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const MineSweeperNewGame = (props: MineSweeperNewGameProps) => {
-  const { setGameOver, setNewGame, setCurrentLevel } = props;
+  const { setGameOver, setNewGame, setCurrentLevel, setGameOverMessage } = props;
 
   const socket = useContext(MineSweeperContext);
 
   const newGame = (level: MineSweeperLevel) => {
     setGameOver(false);
+    setGameOverMessage('');
     setCurrentLevel(level);
     setNewGame(false);
     socket.executeCommand(MineSweeperCommand.NEW, level);

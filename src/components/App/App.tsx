@@ -10,6 +10,7 @@ import { Mode } from '../../api/constants';
 const App = () => {
   const [newGame, setNewGame] = useState<boolean>(true);
   const [gameOver, setGameOver] = useState<boolean>(false);
+  const [gameOverMessage, setGameOverMessage] = useState<string>('');
   const [showHelp, setShowHelp] = useState<boolean>(false);
   const [mode, setMode] = useState<Mode>(Mode.DEFAULT);
   const subject = useContext(MineSweeperContext);
@@ -33,15 +34,19 @@ const App = () => {
           mode={mode}
           gameOver={gameOver}
           setGameOver={setGameOver}
+          gameOverMessage={gameOverMessage}
+          setGameOverMessage={setGameOverMessage}
           newGame={newGame}
           setNewGame={setNewGame}
         />
       </main>
 
-      {showHelp ? <div className={classes.HelpDialog}>
-        <div className={classes.Header}>Help</div>
-        <div className={classes.Body}>Legend</div>
-      </div> : null}
+      {showHelp ? (
+        <div className={classes.HelpDialog}>
+          <div className={classes.Header}>Help</div>
+          <div className={classes.Body}>Legend</div>
+        </div>
+      ) : null}
     </div>
   );
 };

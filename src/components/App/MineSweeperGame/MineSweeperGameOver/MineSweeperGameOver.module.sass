@@ -13,8 +13,13 @@
   visibility: hidden
   height: 0
   transition: height 0.3s linear
-  background-color: $game-over-background-color
   color: $mine-color
+
+  &.Winner
+    background-color: $game-over-won-background-color
+
+  &.Loser
+      background-color: $game-over-lost-background-color
 
   &.Visible
     visibility: visible

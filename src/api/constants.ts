@@ -73,12 +73,13 @@ export enum MineSweeperCommand {
 
 export enum MineSweeperResponse {
   MAP = 'map',
-  GAME_OVER = 'you lose',
+  YOU_LOST = 'you lose',
+  YOU_WIN = 'you win',
 }
 
 export enum MineSweeperLevel {
   EASY = 1,
   NORMAL = 2,
   HARD = 3,
-  EXPERT = 4
+  EXPERT = 4,
 }
