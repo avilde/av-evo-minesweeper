@@ -2,6 +2,7 @@ import React from 'react';
 import classes from './ModeControl.module.sass';
 import classNames from 'classnames';
 import { Mode, modeUiMapping } from '../../../../api/constants';
+import InfoIcon from '../../../../assets/info.svg';
 
 export interface ModeControlProps {
   mode: Mode;
@@ -66,12 +67,10 @@ const ModeControl = (props: ModeControlProps) => {
 
       <div
         className={classes.HelpIcon}
-        aria-label="Help Icon"
-        role="img"
         title="Click for help"
         onClick={() => setShowHelp(true)}
       >
-        🛈
+        <img src={InfoIcon} alt="Info Icon button" />
       </div>
     </div>
   );

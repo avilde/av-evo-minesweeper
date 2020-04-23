@@ -17,34 +17,3 @@
     display: inherit
     justify-content: center
     height: calc(100vh - #{$app-header-height})
-
-  .HelpDialog
-    display: inherit
-    flex-direction: column
-    position: fixed
-    top: 30%
-    right: 0
-    left: 0
-    width: 50%
-    height: 50%
-    z-index: 1
-    margin-left: auto
-    margin-right: auto
-
-    .Header
-      display: inherit
-      height: $app-header-height
-      background: lime
-
-    .Body
-      display: inherit
-      background: salmon
-      height: calc(100% - #{$app-header-height})
-
-@media screen and ( max-width:  60rem)
-  .App
-    .HelpDialog
-      width: 100%
-      height: 100%
-      top: 0
-      bottom: 0

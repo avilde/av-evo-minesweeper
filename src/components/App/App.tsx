@@ -6,6 +6,7 @@ import MineSweeperHeader from './MineSweeperHeader/MineSweeperHeader';
 import { MineSweeperContext } from '../../api/MineSweeperContext';
 import classNames from 'classnames';
 import { Mode } from '../../api/constants';
+import Help from './Help/Help';
 
 const App = () => {
   const [newGame, setNewGame] = useState<boolean>(true);
@@ -41,12 +42,7 @@ const App = () => {
         />
       </main>
 
-      {showHelp ? (
-        <div className={classes.HelpDialog}>
-          <div className={classes.Header}>Help</div>
-          <div className={classes.Body}>Legend</div>
-        </div>
-      ) : null}
+      {showHelp ? <Help setShowHelp={setShowHelp} /> : null}
     </div>
   );
 };
