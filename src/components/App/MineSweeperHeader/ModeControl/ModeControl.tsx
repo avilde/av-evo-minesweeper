@@ -15,8 +15,6 @@ const ModeControl = (props: ModeControlProps) => {
 
   return (
     <div className={classes.ModeControl}>
-      <div className={classes.ModeLabel}>Mode</div>
-
       <div
         className={classNames(
           classes.Mode,

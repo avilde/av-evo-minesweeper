@@ -1,7 +1,8 @@
+@import 'colors'
 @import 'dimensions'
 
 .HelpDialog
-  display: inherit
+  display: flex
   flex-direction: column
   position: fixed
   top: 15%
@@ -9,21 +10,42 @@
   left: 0
   width: 50%
   height: 50%
-  z-index: 1
+  z-index: 2
   margin-left: auto
   margin-right: auto
+  border: 0.0625rem solid black
+  border-radius: 0.25rem
+  box-shadow: 0 0 0.125rem 0.25rem $header-shadow-color
 
   .Header
     display: inherit
-    height: $app-header-height
-    background: lime
+    justify-content: space-between
+    align-items: center
+    color: $header-color
+    background-color: $secondary-background-color
+    padding: 0.5rem
+
+    .Title
+      font-size: 1.25rem
+
+    .CloseIcon
+      width: 1rem
+      height: 1rem
+      margin: 0.5rem
+
+      &:hover
+        cursor: pointer
+        transform: scale(1.2)
 
   .Body
     display: inherit
-    background: salmon
+    flex-direction: column
     height: calc(100% - #{$app-header-height})
+    background-color: $header-color
+    padding: 1rem
+    
 
-@media screen and ( max-width:  60rem)
+@media screen and ( max-width:  40rem)
   .HelpDialog
     width: 100%
     height: 100%

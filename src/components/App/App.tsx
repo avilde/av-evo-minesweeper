@@ -7,6 +7,7 @@ import { MineSweeperContext } from '../../api/MineSweeperContext';
 import classNames from 'classnames';
 import { Mode } from '../../api/constants';
 import Help from './Help/Help';
+import { mySignature } from '../../utils/commonUtils';
 
 const App = () => {
   const [newGame, setNewGame] = useState<boolean>(true);
@@ -18,6 +19,8 @@ const App = () => {
 
   useEffect(() => {
     subject.connect();
+
+    mySignature();
 
     return () => subject.onDisconnect();
   }, [subject]);
