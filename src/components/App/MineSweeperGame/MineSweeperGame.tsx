@@ -85,7 +85,8 @@ const MineSweeperGame = (props: MineSweeperGameProps) => {
     <div
       className={classNames(
         classes.MineSweeper,
-        gameOver ? classes.GameOver : null
+        gameOver ? classes.GameOver : null,
+        newGame ? classes.NewGame: null
       )}
     >
       {newGame && !gameOver ? (

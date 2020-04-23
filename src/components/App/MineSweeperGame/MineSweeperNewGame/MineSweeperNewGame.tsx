@@ -5,6 +5,7 @@ import {
   MineSweeperCommand,
   MineSweeperLevel,
 } from '../../../../api/constants';
+import MineSweeperImage from '../../../../assets/minesweeper.png';
 
 interface MineSweeperNewGameProps {
   setGameOver: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,7 +15,12 @@ interface MineSweeperNewGameProps {
 }
 
 const MineSweeperNewGame = (props: MineSweeperNewGameProps) => {
-  const { setGameOver, setNewGame, setCurrentLevel, setGameOverMessage } = props;
+  const {
+    setGameOver,
+    setNewGame,
+    setCurrentLevel,
+    setGameOverMessage,
+  } = props;
 
   const socket = useContext(MineSweeperContext);
 
@@ -29,6 +35,10 @@ const MineSweeperNewGame = (props: MineSweeperNewGameProps) => {
 
   return (
     <div className={classes.MineSweeperNewGame}>
+      <img src={MineSweeperImage} alt="AV Mine Sweeper" />
+
+      <p>Choose Difficulty</p>
+      
       <div className={classes.Controls}>
         <button onClick={() => newGame(MineSweeperLevel.EASY)}>Easy</button>
         <button onClick={() => newGame(MineSweeperLevel.NORMAL)}>Normal</button>
