@@ -19,7 +19,7 @@ export interface GridCellProps {
   cellIndex: number;
 }
 
-interface CellState {
+export interface CellState {
   cellValue: MapValue;
   open: boolean;
   flag: boolean;
@@ -106,18 +106,21 @@ const GridCell = React.memo((props: GridCellProps) => {
       onClick={handleCellClick}
     >
       {!open && !flag && !question ? (
-        <span className={classes.FlagIcon}>
+        <span className={classes.WhiteBlock}>
           {getUiCharacter(MapValue.WHITE_BLOCK)}
         </span>
       ) : null}
+
       {!open && flag ? (
         <span className={classes.FlagIcon}>{modeUiMapping[Mode.FLAG]}</span>
       ) : null}
+
       {!open && question ? (
         <span className={classes.QuestionIcon}>
           {modeUiMapping[Mode.QUESTION]}
         </span>
       ) : null}
+
       {open ? (
         <span className={classes.CharIcon}>{getUiCharacter(cellValue)}</span>
       ) : null}
