@@ -1,9 +1,19 @@
+import { MapValue, uiValuesMapping } from "../api/constants";
+
 export const isDebugMode = () => {
   return process.env.NODE_ENV === 'development';
 };
 
 export const _debug = (message?: any, ...optionalParams: any[]) => {
   return isDebugMode() ? console.info(message, ...optionalParams) : null;
+};
+
+export const getUiCharacter = (value: MapValue) => {
+  if (value in uiValuesMapping) {
+    return uiValuesMapping[value];
+  } else {
+    return value;
+  }
 };
 
 export const mySignature = () => {

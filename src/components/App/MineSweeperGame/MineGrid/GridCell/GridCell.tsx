@@ -3,13 +3,13 @@ import React, { useState, useContext, useEffect } from 'react';
 import classes from './GridCell.module.sass';
 import classNames from 'classnames';
 import {
-  getUiCharacter,
   MapValue,
   modeUiMapping,
   Mode,
   MineSweeperCommand,
 } from '../../../../../api/constants';
 import { MineSweeperContext } from '../../../../../api/MineSweeperContext';
+import { getUiCharacter } from '../../../../../utils/commonUtils';
 
 export interface GridCellProps {
   value: MapValue;

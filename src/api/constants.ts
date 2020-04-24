@@ -56,14 +56,6 @@ export const modeUiMapping = {
   [Mode.QUESTION]: '❓',
 };
 
-export const getUiCharacter = (value: MapValue) => {
-  if (value in uiValuesMapping) {
-    return uiValuesMapping[value];
-  } else {
-    return value;
-  }
-};
-
 export enum MineSweeperCommand {
   HELP = 'help',
   MAP = 'map',
