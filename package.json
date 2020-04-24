@@ -1,22 +1,25 @@
 {
   "name": "av-evo-minesweeper",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "@types/jest": "^24.9.1",
-    "@types/node": "^12.12.36",
-    "@types/react": "^16.9.34",
-    "@types/react-dom": "^16.9.6",
-    "@types/socket.io-client": "^1.4.32",
     "classnames": "^2.2.6",
     "node-sass": "^4.13.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
-    "rxjs": "^6.5.5",
+    "rxjs": "^6.5.5"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "@types/classnames": "^2.2.10",
+    "jest-mock-console": "^1.0.0",
+    "@types/jest": "^24.9.1",
+    "@types/node": "^12.12.36",
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.6",
     "typescript": "^3.7.5"
   },
   "scripts": {
@@ -46,8 +49,5 @@
     "tabWidth": 2,
     "semi": true,
     "singleQuote": true
-  },
-  "devDependencies": {
-    "@types/classnames": "^2.2.10"
   }
 }
