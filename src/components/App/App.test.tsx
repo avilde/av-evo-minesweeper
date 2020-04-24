@@ -4,6 +4,6 @@ import App from './App';
 
 test('App - new game rendered - success ', () => {
   const { getByText } = render(<App />);
-  const linkElement = getByText(/Choose Difficulty/i);
-  expect(linkElement).toBeInTheDocument();
+  const textElement = getByText(/Choose Difficulty/i);
+  expect(textElement).toBeInTheDocument();
 });

@@ -11,6 +11,6 @@ test('MineSweeperHeader renders without crashing - success ', () => {
       setShowHelp={jest.fn()}
     />
   );
-  const linkElement = getByText(/AV Mine Sweeper/i);
-  expect(linkElement).toBeInTheDocument();
+  const textElement = getByText(/AV Mine Sweeper/i);
+  expect(textElement).toBeInTheDocument();
 });
