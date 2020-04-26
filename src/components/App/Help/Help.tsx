@@ -36,7 +36,7 @@ const Help = (props: HelpProps) => {
             </li>
 
             <li>
-              You can choose from 4 different difficult levels - <b>Easy</b>,
+              You can choose from 4 different difficulty levels - <b>Easy</b>,
               <b>Normal</b>, <b>Hard</b>, <b>Expert</b>
             </li>
 
@@ -48,28 +48,28 @@ const Help = (props: HelpProps) => {
                   <span role="img" aria-label={Mode.QUESTION}>
                     💣
                   </span>
-                  - default mode - uncover a field (cell)
+                  - default mode - uncover a field
                 </li>
 
                 <li>
                   <span role="img" aria-label={Mode.FLAG}>
                     🚩
                   </span>
-                  - flag a field if you think that there is 100% a mine
+                  - flag a field if you are certain that there is a mine
                   underneath
                 </li>
 
                 <li>
                   <span role="img" aria-label={Mode.QUESTION}>
                     ❓
-                  </span>- extra mode if you only have a hunch that there can be a mine
+                  </span>- if you only have a hunch that there can be a mine
                 </li>
               </ul>
             </li>
 
             <li>
-              Check each cell neighboring cells (3 x 3 matrix) is the mine count
-              match with number
+              Check each cell's neighboring cells (3 x 3 matrix) if the mine count
+              matches with the number
             </li>
           </ul>
         </div>
